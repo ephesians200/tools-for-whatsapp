@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">100+ Tools For Whatsapp</string>
+    <string name="sc_direct_short">Direct chat</string><string name="sc_direct_long">Chat with any number</string>
+    <string name="sc_wrapped_short">Chat Wrapped</string><string name="sc_wrapped_long">Analyse an exported chat</string>
+    <string name="sc_links_short">Clean a link</string><string name="sc_links_long">Remove tracking from a link</string>
+    <string name="widget_label">Chat with a number</string>
+    <string name="process_text_label">Chat on WhatsApp</string>
+    <string name="keepalive_channel">Background jobs</string>
+</resources>

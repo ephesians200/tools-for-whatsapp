@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+    <!-- RECORD_AUDIO is only requested at runtime by the Voice Note Transcriber fallback (Android 13+ system engine / mic dictation). -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- Keeps long video jobs alive while the app is in the background. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
+    <queries>
+        <intent><action android:name="android.speech.RecognitionService"/></intent>
+        <package android:name="com.whatsapp"/><package android:name="com.whatsapp.w4b"/>
+        <intent><action android:name="android.intent.action.VIEW"/><data android:scheme="https"/></intent>
+    </queries>
+    <!-- allowBackup=false: vault rows are encrypted with a Keystore key that is NOT restored on a new device. -->
+    <application android:name=".App" android:label="@string/app_name"
+        tools:replace="android:label,android:allowBackup"
+        android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round"
+        android:allowBackup="false" android:fullBackupContent="false" android:dataExtractionRules="@xml/data_extraction_rules"
+        android:supportsRtl="true" android:enableOnBackInvokedCallback="true"
+        android:theme="@style/Theme.App">
+        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="${admobAppId}"/>
+        <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:theme="@style/Theme.App.Starting">
+            <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+            <!-- WhatsApp "Export chat" (.txt or .zip) and any shared text (phone number / link / text) via the share sheet -->
+            <intent-filter><action android:name="android.intent.action.SEND"/><category android:name="android.intent.category.DEFAULT"/><data android:mimeType="text/plain"/></intent-filter>
+            <intent-filter><action android:name="android.intent.action.SEND"/><category android:name="android.intent.category.DEFAULT"/><data android:mimeType="application/zip"/></intent-filter>
+            <!-- Text-selection menu: "Chat on WhatsApp" for a selected phone number in any app -->
+            <intent-filter><action android:name="android.intent.action.PROCESS_TEXT"/><category android:name="android.intent.category.DEFAULT"/><data android:mimeType="text/plain"/></intent-filter>
+            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
+        </activity>
+        <service android:name=".util.KeepAliveService" android:exported="false" android:foregroundServiceType="dataSync"/>
+        <receiver android:name=".DirectChatWidget" android:exported="true">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_direct_chat_info"/>
+        </receiver>
+        <provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.fileprovider"
+            android:exported="false" android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"/>
+        </provider>
+        <provider android:name=".StickerProvider" android:authorities="${applicationId}.stickercontentprovider" android:exported="true" android:readPermission="com.whatsapp.sticker.READ"/>
+    </application>
+</manifest>
