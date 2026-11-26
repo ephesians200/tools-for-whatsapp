@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut android:shortcutId="direct_chat" android:enabled="true" android:icon="@drawable/ic_notification" android:shortcutShortLabel="@string/sc_direct_short" android:shortcutLongLabel="@string/sc_direct_long">
+        <intent android:action="com.prince.whatstoolbox.OPEN_TOOL" android:targetPackage="com.prince.whatstoolbox" android:targetClass="com.prince.whatstoolbox.MainActivity"><extra android:name="tool" android:value="DirectChat"/></intent>
+    </shortcut>
+    <shortcut android:shortcutId="chat_wrapped" android:enabled="true" android:icon="@drawable/ic_notification" android:shortcutShortLabel="@string/sc_wrapped_short" android:shortcutLongLabel="@string/sc_wrapped_long">
+        <intent android:action="com.prince.whatstoolbox.OPEN_TOOL" android:targetPackage="com.prince.whatstoolbox" android:targetClass="com.prince.whatstoolbox.MainActivity"><extra android:name="tool" android:value="ChatAnalyticsWrapped"/></intent>
+    </shortcut>
+    <shortcut android:shortcutId="link_cleaner" android:enabled="true" android:icon="@drawable/ic_notification" android:shortcutShortLabel="@string/sc_links_short" android:shortcutLongLabel="@string/sc_links_long">
+        <intent android:action="com.prince.whatstoolbox.OPEN_TOOL" android:targetPackage="com.prince.whatstoolbox" android:targetClass="com.prince.whatstoolbox.MainActivity"><extra android:name="tool" android:value="TrackingLinkCleaner"/></intent>
+    </shortcut>
+</shortcuts>
